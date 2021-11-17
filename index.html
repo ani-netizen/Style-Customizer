@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Style-Customizer</title>
+
+	<style>
+		:root {
+			--base: #ffc600;
+			--spacing: 10px;
+			--blur: 10px;
+		}
+
+		body {
+			text-align: center;
+			background: #193549;
+			font-family: 'Times New Roman', Times, serif;
+			color: white;
+		}
+
+		h1 {
+			font-size: 2.5rem;
+		}
+
+		span {
+			color: var(--base);
+		}
+
+		.controls {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-evenly;
+		}
+
+		img {
+			padding: var(--spacing);
+			background: var(--base);
+			filter: blur(var(--blur));
+			width: 80vw;
+			margin: 1rem;
+			align-self: center;
+		}
+
+		@media (min-width: 768px) {
+			h1 {
+				font-size: 3rem;
+			}
+
+			.controls {
+				flex-direction: row;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Style-<span>Customizer</span></h2>
+	<div class="controls">
+		<div>
+			<label for="spacing">Spacing: </label>
+			<input type="range" name="spacing" min="0" max="75" value="10" data-sizing="px">
+		</div>
+		<div>
+			<label for="blur">Blur: </label>
+			<input type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+		</div>
+		<div>
+			<label for="base">Base Color: </label>
+			<input type="color" name="base" value="#ffc600">
+		</div>
+	</div>
+	<img src="https://images.unsplash.com/photo-1585412168334-8fa91429cc64?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y2l0eSUyMGxpZ2h0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80" alt="image">
+
+	<script>
+		const inputs = document.querySelectorAll(".controls input");
+
+		function handleUpdate() {
+			const suffix = this.dataset.sizing || '';
+			document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+		}
+
+		inputs.forEach(input => input.addEventListener('change', handleUpdate));
+		inputs.forEach(input => input.addEventListener("mousemove", handleUpdate));
+		inputs.forEach(input => input.addEventListener("touchmove", handleUpdate));
+	</script>
+</body>
+	
+</html>
